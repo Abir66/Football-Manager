@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1130.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
+   <children>
+      <Pane layoutY="-1.0" prefHeight="700.0" prefWidth="465.0" style="-fx-background-color: #252525;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text fill="WHITE" layoutX="82.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FOOTBALL" textAlignment="CENTER" wrappingWidth="331.0">
+               <font>
+                  <Font name="Agency FB Bold" size="92.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="70.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MANAGER" textAlignment="CENTER" wrappingWidth="354.0">
+               <font>
+                  <Font name="Agency FB Bold" size="94.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <MFXButton fx:id="signIn" buttonType="RAISED" layoutX="637.0" layoutY="424.0" onAction="#loginAction" prefHeight="52.0" prefWidth="137.0" style="-fx-background-color: #252525;" text="Sign In" textFill="WHITE">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </MFXButton>
+      <MFXButton fx:id="reset" buttonType="RAISED" focusTraversable="false" layoutX="827.0" layoutY="424.0" onAction="#resetAction" prefHeight="52.0" prefWidth="137.0" style="-fx-background-color: #252525;" text="Reset" textFill="WHITE">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </MFXButton>
+      <Label fx:id="errorLabel" layoutX="639.0" layoutY="190.0" prefHeight="38.0" prefWidth="325.0" textAlignment="CENTER" textFill="#ec3030">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <PasswordField fx:id="password" layoutX="639.0" layoutY="338.0" prefHeight="46.0" prefWidth="325.0" promptText="Password" styleClass="text-field" stylesheets="@../styles/style.css">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </PasswordField>
+      <TextField fx:id="clubName" layoutX="639.0" layoutY="252.0" prefHeight="52.0" prefWidth="325.0" promptText="Club Name" styleClass="text-field" stylesheets="@../styles/style.css">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="69.0" prefWidth="684.0" style="-fx-background-color: #252525;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CountryWise">
+    <children>
+        <Label fx:id="countryName" layoutX="46.0" layoutY="13.0" prefHeight="43.0" prefWidth="318.0" text="New England" textFill="WHITE">
+            <font>
+                <Font name="Agency FB Bold" size="35.0" />
+            </font>
+        </Label>
+      <Label fx:id="playerCount" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="321.0" layoutY="13.0" prefHeight="43.0" prefWidth="318.0" text="426 Players" textAlignment="RIGHT" textFill="WHITE">
+         <font>
+            <Font name="Agency FB Bold" size="35.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<DialogPane expanded="true" prefHeight="282.0" prefWidth="630.0" styleClass="dialog" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PlayerDialogueController">
+   <content>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="242.0" prefWidth="610.0" style="-fx-background-color: #303030;">
+         <children>
+            <Label fx:id="name" contentDisplay="CENTER" layoutX="56.0" layoutY="36.0" prefHeight="60.0" prefWidth="498.0" text="Lionel Messi" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB Bold" size="48.0" />
+               </font>
+            </Label>
+            <Label layoutX="56.0" layoutY="106.0" prefHeight="42.0" prefWidth="112.0" text="Club           :" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="56.0" layoutY="146.0" prefHeight="42.0" prefWidth="112.0" text="Country     :" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="56.0" layoutY="186.0" prefHeight="42.0" prefWidth="112.0" text="Age            :" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="351.0" layoutY="106.0" prefHeight="42.0" prefWidth="112.0" text="Height        :" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="351.0" layoutY="146.0" prefHeight="42.0" prefWidth="112.0" text="Salary        :" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="351.0" layoutY="186.0" prefHeight="42.0" prefWidth="112.0" text="Position      :" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="clubName" layoutX="170.0" layoutY="106.0" prefHeight="42.0" prefWidth="179.0" text="Manchaster United" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="countryName" layoutX="170.0" layoutY="146.0" prefHeight="42.0" prefWidth="182.0" text="Barcalona" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="age" layoutX="170.0" layoutY="186.0" prefHeight="42.0" prefWidth="165.0" text="Barcalona" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="height" layoutX="465.0" layoutY="106.0" prefHeight="42.0" prefWidth="137.0" text="Barcalona" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="position" layoutX="465.0" layoutY="186.0" prefHeight="42.0" prefWidth="136.0" text="Barcalona" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="salary" layoutX="465.0" layoutY="146.0" prefHeight="42.0" prefWidth="136.0" text="Barcalona" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="24.0" />
+               </font>
+            </Label>
+            <MFXButton buttonType="RAISED" layoutX="554.0" layoutY="14.0" onAction="#close" prefHeight="38.0" prefWidth="42.0" style="-fx-background-color: #424242;" text="X" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </MFXButton>
+         </children>
+      </AnchorPane>
+   </content>
+</DialogPane>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="99.0" prefWidth="684.0" style="-fx-background-color: #252525;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PlayerBox">
+   <children>
+      <Label fx:id="nameRow" layoutX="47.0" layoutY="13.0" prefHeight="43.0" prefWidth="374.0" text="Lionel Messi" textFill="WHITE">
+         <font>
+            <Font name="Agency FB Bold" size="35.0" />
+         </font>
+      </Label>
+      <Label fx:id="clubRow" layoutX="47.0" layoutY="46.0" prefHeight="43.0" prefWidth="366.0" text="Manchester Uniter, Goalkeeper, 10" textFill="#b1a9a9">
+         <font>
+            <Font name="Agency FB Bold" size="25.0" />
+         </font>
+      </Label>
+      <MFXButton fx:id="sellButton" buttonType="RAISED" layoutX="447.0" layoutY="32.0" onAction="#sell" prefHeight="35.0" prefWidth="84.0" style="-fx-background-color: #424242;" text="Sell" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </MFXButton>
+      <MFXButton fx:id="detailsButton" buttonType="RAISED" layoutX="555.0" layoutY="32.0" onAction="#details" prefHeight="35.0" prefWidth="84.0" style="-fx-background-color: #424242;" text="Details" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </MFXButton>
+   </children>
+</AnchorPane>
