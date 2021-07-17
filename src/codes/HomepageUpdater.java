@@ -81,7 +81,10 @@ public class HomepageUpdater {
             }
             if (!(to == -1 && from == -1)) {
                 homepageController.setMessageLabel(null);
-                updateGUI(localDatabase.salaryRange(from, to));
+                double finalFrom = from;
+                double finalTo = to;
+                new Thread(() -> { updateGUI(localDatabase.salaryRange(finalFrom, finalTo)); }).start();
+
             }
         }
 

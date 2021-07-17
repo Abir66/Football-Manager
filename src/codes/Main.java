@@ -12,7 +12,6 @@ import network.client.Client;
 import network.client.ReadThreadClient;
 import network.dto.LogoutRequest;
 import network.util.NetworkUtil;
-
 import java.io.IOException;
 
 public class Main extends Application {
