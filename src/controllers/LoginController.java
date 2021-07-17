@@ -63,11 +63,10 @@ public class LoginController implements Initializable {
 
         if (loginRespond.isAccess()){
             try {
-                System.out.println(loginRespond.getClub().getPlayers().size());
-                LocalDatabase localDatabase = new LocalDatabase(loginRespond);
-                System.out.println("sdfsdf" + loginRespond.getClub().getPlayers().size());
-                System.out.println("login controller" + localDatabase.getPlayers().size());
-                main.setDatabase(localDatabase);
+                //System.out.println(loginRespond.getClub().getPlayers().size());
+                LocalDatabase localDatabase = LocalDatabase.getInstance(loginRespond,networkUtil);
+                //System.out.println("sdfsdf" + loginRespond.getClub().getPlayers().size());
+                //System.out.println("login controller" + localDatabase.getPlayers().size());
                 main.showHomePage();
             } catch (Exception e) {
                 e.printStackTrace();

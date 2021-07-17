@@ -3,17 +3,10 @@ package network.server;
 import network.util.NetworkUtil;
 
 public class ClientInfo {
-    private String password;
-    private boolean isOnline;
+
     private NetworkUtil networkUtil;
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    private boolean isOnline;
+    private int clubID;
 
     public boolean isOnline() {
         return isOnline;
@@ -30,4 +23,8 @@ public class ClientInfo {
     public void setNetworkUtil(NetworkUtil networkUtil) {
         this.networkUtil = networkUtil;
     }
+
+
+
+
 }

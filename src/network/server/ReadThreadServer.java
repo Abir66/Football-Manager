@@ -1,24 +1,28 @@
 package network.server;
 
 import network.util.NetworkUtil;
-
 import java.io.IOException;
 import java.util.*;
-
 import network.dto.*;
+
 
 public class ReadThreadServer implements Runnable {
     private Thread thr;
     private NetworkUtil networkUtil;
-    public HashMap<String, ClientInfo> clientMap;
-    ServerRespond serverRespond = new ServerRespond();
+    ServerRespond serverRespond;
+    private List<NetworkUtil> clientList;
 
 
-    public ReadThreadServer(HashMap<String, ClientInfo> map, NetworkUtil networkUtil) {
-        this.clientMap = map;
+    public ReadThreadServer(List<NetworkUtil> clientList, NetworkUtil networkUtil, ServerRespond serverRespond) {
+        this.clientList = clientList;
         this.networkUtil = networkUtil;
+        this.serverRespond = serverRespond;
         this.thr = new Thread(this);
         thr.start();
+    }
+
+    public void stopThread(){
+        thr.interrupt();
     }
 
     public void run() {
@@ -28,64 +32,28 @@ public class ReadThreadServer implements Runnable {
                 System.out.println(o);
 
                 if(o instanceof LoginRequest){
+                    LoginRespond loginRespond = serverRespond.checkLogin((LoginRequest)o);
+                    if (loginRespond.isAccess()) clientList.add(networkUtil);
                     networkUtil.write(serverRespond.checkLogin((LoginRequest)o));
                 }
 
-                if (o instanceof RegisterMessage) {
-                    RegisterMessage obj = (RegisterMessage) o;
-                    ClientInfo clientInfo = new ClientInfo();
-                    clientInfo.setPassword(obj.getPassword());
-                    clientInfo.setOnline(false);
-                    clientInfo.setNetworkUtil(networkUtil);
-                    clientMap.put(obj.getName(), clientInfo);
+                if (o instanceof SellRequest){
+
+                    new Thread(() -> {
+                        serverRespond.sell((SellRequest)o);
+                    }).start();
                 }
-                if (o instanceof LoginMessage) {
-                    LoginMessage obj = (LoginMessage) o;
-                    ClientInfo clientInfo = clientMap.get(obj.getName());
-                    if (clientInfo != null) {
-                        if (clientInfo.getPassword().equals(obj.getPassword())) {
-                            clientInfo.setOnline(true);
-                            networkUtil.write("success");
-                        } else {
-                            networkUtil.write("failure");
-                        }
-                    }
+
+                if (o instanceof BuyRequest){
+                    new Thread(() -> {
+                        serverRespond.sell((SellRequest)o);
+                    }).start();
                 }
-                if (o instanceof GetListMessage) {
-                    List<String> clientList = new ArrayList<>();
-                    GetListMessage obj = (GetListMessage) o;
-                    Iterator<String> iterator = clientMap.keySet().iterator();
-                    while (iterator.hasNext()) {
-                        String name = iterator.next();
-                        ClientInfo clientInfo = clientMap.get(name);
-                        if (!name.equals(obj.getName()) && clientInfo.isOnline()) {
-                            clientList.add(name);
-                        }
-                    }
-                    GetListResponseMessage getListResponseMessage = new GetListResponseMessage();
-                    getListResponseMessage.setClientList(clientList);
-                    networkUtil.write(getListResponseMessage);
+
+                if (o instanceof LoginRespond){
+                    clientList.remove(networkUtil);
                 }
-                if (o instanceof Message) {
-                    Message obj = (Message) o;
-                    if (obj.getTo().equals("ALL")) {
-                        // Broadcast
-                        Iterator<String> iterator = clientMap.keySet().iterator();
-                        while (iterator.hasNext()) {
-                            String name = iterator.next();
-                            ClientInfo clientInfo = clientMap.get(name);
-                            if (!name.equals(obj.getFrom()) && clientInfo.isOnline()) {
-                                clientInfo.getNetworkUtil().write(obj);
-                            }
-                        }
-                    } else {
-                        // SendOne
-                        ClientInfo clientInfo = clientMap.get(obj.getTo());
-                        if (clientInfo != null) {
-                            clientInfo.getNetworkUtil().write(obj);
-                        }
-                    }
-                }
+
             }
         } catch (Exception e) {
             System.out.println(e);

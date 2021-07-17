@@ -1,5 +1,7 @@
 package controllers;
 
+import data.Club;
+import data.LocalDatabase;
 import data.Player;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
@@ -10,6 +12,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.stage.StageStyle;
+import network.dto.BuyRequest;
 import network.dto.SellRequest;
 import network.util.NetworkUtil;
 
@@ -17,11 +20,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PlayerBox {
+public class MarketPlayerBox implements Initializable {
 
     private Player player;
-    private NetworkUtil networkUtil;
-    double price = 5;
+    private Club club;
 
     @FXML
     private Label nameRow;
@@ -30,10 +32,13 @@ public class PlayerBox {
     private Label clubRow;
 
     @FXML
-    private MFXButton sellButton;
+    private MFXButton buyButton;
 
     @FXML
     private MFXButton detailsButton;
+
+
+
 
     @FXML
     void details(ActionEvent event) {
@@ -53,38 +58,33 @@ public class PlayerBox {
     }
 
     @FXML
-    void sell(ActionEvent event) {
-
-        FXMLLoader fxmlLoader= new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/views/fxml/confirmSell.fxml"));
+    void buy(ActionEvent event) {
         try {
-            DialogPane dialogPane = fxmlLoader.load();
-            ConfirmSell controller = fxmlLoader.getController();
-            controller.init(player);
-            Dialog dialog = new Dialog();
-            dialog.setDialogPane(dialogPane);
-            dialog.initStyle(StageStyle.UNDECORATED);
-            dialog.showAndWait();
+            NetworkUtil networkUtil = LocalDatabase.getInstance().getNetworkUtil();
+            networkUtil.write(new BuyRequest(player.getId(), club.getId()));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
 
     public Player getPlayer() {
         return player;
     }
 
-    public void inti(Player player, NetworkUtil networkUtil) {
+    public void inti(Player player, Club club) {
         this.player = player;
-        this.networkUtil = networkUtil;
+        this.club = club;
+        if (player.getClub().getId() == club.getId()) buyButton.setVisible(false);
         updatePlayerInfoUI();
     }
 
     public void updatePlayerInfoUI(){
         nameRow.setText(player.getName());
-        clubRow.setText(player.getCountry() + ", " + player.getPosition() + ", " + player.getNumber());
+        clubRow.setText(player.getCountry() + ", " + player.getPosition() + ", " + player.getPrice() + " $");
     }
 }

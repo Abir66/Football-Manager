@@ -12,6 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import network.dto.LogoutRequest;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +24,6 @@ public class HomepageController{
     private int searchOption = 0;
     private String searchString;
     private Main main;
-    LocalDatabase localDatabase;
     HomepageUpdater homepageUpdater;
     Club club;
     int list = 0; //1->club players, 2->marketplayers
@@ -129,7 +131,7 @@ public class HomepageController{
     }
 
     void search(){
-        homepageUpdater.updateGUI(searchOption,searchString,this);
+        homepageUpdater.updateGUI(searchOption,searchString);
     }
 
     @FXML
@@ -231,38 +233,43 @@ public class HomepageController{
     void showHome(ActionEvent event) {
         if(list==1) return;
         list = 1;
+        totalSalaryButton.setVisible(true);
         clubNameLabel.setText(club.getName());
-        localDatabase.setShowPLayer(list);
-        homepageUpdater.updateGUI(this);
+        homepageUpdater.updateGUI(list);
     }
 
     @FXML
     void showMarket(ActionEvent event) {
         if(list==2) return;
         list = 2;
+        totalSalaryButton.setVisible(false);
         clubNameLabel.setText("Marketplace");
-        localDatabase.setShowPLayer(list);
-        homepageUpdater.updateGUI(this);
+        homepageUpdater.updateGUI(list);
     }
 
     @FXML
     void logOut(ActionEvent event) {
-
-        search();
+        try {
+            LocalDatabase.getInstance().getNetworkUtil().write(new LogoutRequest());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            main.showLoginPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
-
-    public void init(Main main , LocalDatabase database){
+    public void init(Main main){
         this.main = main;
-        this.localDatabase = database;
-        club = localDatabase.getClub();
-        homepageUpdater = new HomepageUpdater(this, localDatabase);
+        club = LocalDatabase.getInstance().getClub();
+        homepageUpdater = new HomepageUpdater(this);
+        LocalDatabase.getInstance().setHomepageController(this);
         showHome(new ActionEvent());
     }
 
-
-    public LocalDatabase getLocalDatabase() { return localDatabase; }
 
     public Label getNotFoundLabel() { return notFoundLabel; }
 
@@ -272,5 +279,7 @@ public class HomepageController{
         messageLabel.setText(message);
     }
 
-
+    public HomepageUpdater getHomepageUpdater() {
+        return homepageUpdater;
+    }
 }

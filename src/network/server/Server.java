@@ -6,15 +6,18 @@ import network.util.NetworkUtil;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Server {
 
     private ServerSocket serverSocket;
-    public HashMap<String, ClientInfo> clientMap;
+    private List<NetworkUtil> clientList = new ArrayList<>();
+    private ServerRespond serverRespond;
 
     Server() {
-        clientMap = new HashMap<>();
+        serverRespond = new ServerRespond(clientList);
         try {
             serverSocket = new ServerSocket(44444);
             while (true) {
@@ -28,7 +31,7 @@ public class Server {
 
     public void serve(Socket clientSocket) throws IOException {
         NetworkUtil networkUtil = new NetworkUtil(clientSocket);
-        new ReadThreadServer(clientMap, networkUtil);
+        new ReadThreadServer(clientList, networkUtil , serverRespond);
     }
 
     public static void main(String args[]) {

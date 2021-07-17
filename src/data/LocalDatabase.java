@@ -1,6 +1,8 @@
 package data;
 
+import controllers.HomepageController;
 import network.dto.LoginRespond;
+import network.util.NetworkUtil;
 
 import java.util.*;
 
@@ -10,17 +12,52 @@ public class LocalDatabase {
     List<Player> clubPlayers = new ArrayList();
     List<Player> players = new ArrayList();
     List<Player> marketPlayers = new ArrayList<>();
+    NetworkUtil networkUtil;
+    HomepageController homepageController;
 
 
-    public LocalDatabase(LoginRespond loginRespond) {
-        this.club = loginRespond.getClub();
-        this.clubPlayers = loginRespond.getClub().getPlayers();
-        this.marketPlayers = loginRespond.getMarketList();
-        System.out.println(clubPlayers.size() + " " + marketPlayers.size());
-        System.out.println(players.size());
+    private static LocalDatabase instance;
+
+    private LocalDatabase() {
+        try {
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setShowPLayer(int i){
+    public static LocalDatabase getInstance() {
+        if (instance == null) {
+            instance = new LocalDatabase();
+        }
+        return instance;
+    }
+
+
+    public static LocalDatabase getInstance(LoginRespond loginRespond, NetworkUtil networkUtil) {
+        if (instance == null) {
+            instance = new LocalDatabase();
+            instance.networkUtil = networkUtil;
+            instance.club = loginRespond.getClub();
+            instance.clubPlayers = loginRespond.getClub().getPlayers();
+            instance.marketPlayers = loginRespond.getMarketList();
+        }
+        return instance;
+    }
+
+    public void setHomepageController(HomepageController homepageController) {
+        this.homepageController = homepageController;
+    }
+
+    public HomepageController getHomepageController() {
+        return homepageController;
+    }
+
+    public NetworkUtil getNetworkUtil() {
+        return networkUtil;
+    }
+
+    public void setListToShow(int i){
         if (i==1) players = clubPlayers;
         else players = marketPlayers;
     }
@@ -116,13 +153,11 @@ public class LocalDatabase {
 
     boolean low(double range, double player){
         if (range==-1) return true;
-        if(range<=player) return true;
-        return false;
+        return range <= player;
     }
     boolean high(double range, double player){
         if (range==-1) return true;
-        if(range>=player) return true;
-        return false;
+        return range >= player;
     }
 
     public List<Player> getPlayers() {
@@ -148,8 +183,7 @@ public class LocalDatabase {
 
     public HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm) {
         // Create a list from elements of HashMap
-        List<Map.Entry<String, Integer> > list =
-                new LinkedList<Map.Entry<String, Integer> >(hm.entrySet());
+        List<Map.Entry<String, Integer> > list = new LinkedList<Map.Entry<String, Integer> >(hm.entrySet());
 
         // Sort the list
         Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() {
@@ -167,5 +201,30 @@ public class LocalDatabase {
         }
         return temp;
     }
+
+    public void addToList(Player player){
+        clubPlayers.add(player);
+    }
+    public void addToMarket(Player player){
+        marketPlayers.add(player);
+    }
+    public void removeFromList(Player player){
+        for (int i = 0; i < clubPlayers.size(); i++) {
+            if(clubPlayers.get(i).getId() == player.getId()){
+                clubPlayers.remove(i);
+                break;
+            }
+        }
+    }
+    public void removeFromMarket(Player player){
+        System.out.println("playerid " + player.getId());
+        for (int i = 0; i < marketPlayers.size(); i++) {
+            if(marketPlayers.get(i).getId() == player.getId()){
+                marketPlayers.remove(i);
+                break;
+            }
+        }
+    }
+
 
 }

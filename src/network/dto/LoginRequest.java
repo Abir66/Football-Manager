@@ -7,7 +7,6 @@ public class LoginRequest implements Serializable {
     String password;
 
     public LoginRequest(String clubName, String password){
-        System.out.println(clubName + " , " + password);
         this.clubName = clubName;
         this.password = password;
     }

@@ -10,7 +10,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import network.client.Client;
 import network.client.ReadThreadClient;
+import network.dto.LogoutRequest;
 import network.util.NetworkUtil;
+
+import java.io.IOException;
 
 public class Main extends Application {
 
@@ -19,11 +22,7 @@ public class Main extends Application {
     private NetworkUtil networkUtil;
     private ReadThreadClient readThreadClient;
     private UpdateFromReadThread updater = new UpdateFromReadThread();
-    private LocalDatabase database;
 
-    public void setDatabase(LocalDatabase database) {
-        this.database = database;
-    }
 
     public Stage getStage() {
         return stage;
@@ -40,6 +39,7 @@ public class Main extends Application {
         readThreadClient.setUpdate(updater);
 
         stage = primaryStage;
+        stage.setOnCloseRequest(e->closeProgram());
         showLoginPage();
     }
 
@@ -69,12 +69,28 @@ public class Main extends Application {
 
         // Loading the controller
         HomepageController controller = loader.getController();
-        controller.init(this , database);
+        controller.init(this);
 
         // Set the primary stage
-        stage.setTitle("Football Manager - " + database.getClub().getName());
+        stage.setTitle("Football Manager - " + LocalDatabase.getInstance().getClub().getName());
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    void closeProgram(){
+        try {
+            networkUtil.write(new LogoutRequest());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //readThreadClient.stopThread();
+        try {
+            networkUtil.closeConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.close();
+        System.out.println("Exited successfully");
     }
 
 

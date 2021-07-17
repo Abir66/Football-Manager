@@ -14,7 +14,6 @@ public class LoginRespond implements Serializable {
     public LoginRespond(boolean access, Club club, List<Player> marketList) {
         this.access = access;
         this.club = club;
-        System.out.println(club.getPlayers().size());
         this.marketList = marketList;
     }
 

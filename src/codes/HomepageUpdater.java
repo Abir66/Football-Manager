@@ -1,18 +1,17 @@
 package codes;
 
 import controllers.*;
+import data.Club;
 import data.LocalDatabase;
 import data.Player;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
@@ -23,11 +22,17 @@ public class HomepageUpdater {
 
     HomepageController homepageController;
     LocalDatabase localDatabase;
-    LoginController loginController;
+    int list = 1;
+    int searchOption = 0;
+    String searchString  = null;
+    Club club;
 
-    void search(int searchOption, String searchString, HomepageController homepageController) {
-        this.homepageController = homepageController;
-        localDatabase = homepageController.getLocalDatabase();
+    public void setList(int list) {
+        this.list = list;
+        localDatabase.setListToShow(list);
+    }
+
+    void search() {
 
         if (searchOption == 0) {
             updateGUI(localDatabase.getPlayers());
@@ -85,6 +90,7 @@ public class HomepageUpdater {
             updateGUI(localDatabase.maxSalaryPlayers());
         }
         else if (searchOption == 8) {
+            //new Thread(() -> updateGUI(localDatabase.countryWiseCount())).start();
             updateGUI(localDatabase.countryWiseCount());
         }
 
@@ -96,7 +102,7 @@ public class HomepageUpdater {
             try {
                 DialogPane dialogPane = fxmlLoader.load();
                 TotalSalaryDialog totalSalaryDialog = fxmlLoader.getController();
-                totalSalaryDialog.init("ClubNameDeoyaLagbe",totalSalary);
+                totalSalaryDialog.init(localDatabase.getClub().getName(),totalSalary);
                 Dialog dialog = new Dialog();
                 dialog.setDialogPane(dialogPane);
                 dialog.initStyle(StageStyle.UNDECORATED);
@@ -107,12 +113,16 @@ public class HomepageUpdater {
         }
     }
 
-    public void updateGUI(HomepageController homepageController) {
-        search(0, "", homepageController);
+    public void updateGUI(int list) {
+        setList(list);
+        searchOption = 0;
+        search();
     }
 
-    public void updateGUI(int searchOption, String searchString, HomepageController homepageController) {
-        search(searchOption, searchString, homepageController);
+    public void updateGUI(int searchOption, String searchString) {
+        this.searchOption = searchOption;
+        this.searchString = searchString;
+        search();
     }
 
     public void updateGUI(List<Player> players) {
@@ -126,9 +136,13 @@ public class HomepageUpdater {
         }
         notFoundLabel.setVisible(false);
 
+        String address = null;
+        if (list == 1) address = "/views/fxml/playerBox.fxml";
+        else if(list == 2) address = "/views/fxml/marketPlayerBox.fxml";
+
         for (int i = 0; i < players.size(); i++) {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/views/fxml/playerBox.fxml"));
+            fxmlLoader.setLocation(getClass().getResource(address));
 
             try {
                 AnchorPane anchorPane = fxmlLoader.load();
@@ -137,8 +151,15 @@ public class HomepageUpdater {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            PlayerBox playerBox = fxmlLoader.getController();
-            playerBox.setPlayer(players.get(i));
+
+            if (list==1){
+                PlayerBox playerBox = fxmlLoader.getController();
+                playerBox.inti(players.get(i), localDatabase.getNetworkUtil());
+            }
+            else{
+                MarketPlayerBox marketPlayerBox = fxmlLoader.getController();
+                marketPlayerBox.inti(players.get(i), club);
+            }
         }
     }
 
@@ -172,8 +193,14 @@ public class HomepageUpdater {
         }
     }
 
-    public HomepageUpdater(HomepageController homepageController, LocalDatabase localDatabase) {
+    public HomepageUpdater(HomepageController homepageController) {
         this.homepageController = homepageController;
-        this.localDatabase = localDatabase;
+        this.localDatabase = LocalDatabase.getInstance();
+        club = localDatabase.getClub();
     }
+
+    public void refreshGUI(int refresherId){
+        if (refresherId ==3 || refresherId == list) search();
+    }
+
 }

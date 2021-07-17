@@ -1,13 +1,9 @@
 package network.client;
 
 import codes.UpdateFromReadThread;
-import controllers.HomepageController;
-import controllers.LoginController;
-import network.dto.GetListResponseMessage;
 import network.dto.LoginRespond;
-import network.dto.Message;
+import network.dto.UpdateRespond;
 import network.util.NetworkUtil;
-
 import java.io.IOException;
 
 public class ReadThreadClient implements Runnable {
@@ -25,40 +21,22 @@ public class ReadThreadClient implements Runnable {
         thr.start();
     }
 
+    public void stopThread(){
+        thr.stop();
+    }
+
     public void run() {
         try {
+            int x = 0;
             while (true) {
                 Object o = networkUtil.read();
 
                 if (o instanceof LoginRespond) {
-                    LoginRespond loginRespond = (LoginRespond)o;
-                    System.out.println(loginRespond.getClub().getName() + "---" + loginRespond.getClub().getPlayers().size());
                     update.loginAction((LoginRespond) o);
                 }
 
-                if (o instanceof String) {
-                    // Login Response
-                    String s = (String) o;
-                    if (s.equals("success")) {
-                        System.out.println("Login Successful");
-
-                    } else {
-                        System.out.println("Login Unsuccessful");
-
-                    }
-                }
-                if (o instanceof GetListResponseMessage) {
-                    // GetList Response
-                    GetListResponseMessage obj = (GetListResponseMessage) o;
-                    System.out.println("List of Connected Clients: ");
-                    for (String clientName : obj.getClientList()) {
-                        System.out.println(clientName);
-                    }
-                }
-                if (o instanceof Message) {
-                    // SendOne and Broadcast Response
-                    Message obj = (Message) o;
-                    System.out.println(obj.getFrom() + ", " + obj.getTo() + ", " + obj.getText());
+                if(o instanceof UpdateRespond){
+                    update.updateFromServerRespond((UpdateRespond) o);
                 }
             }
         } catch (Exception e) {

@@ -103,14 +103,21 @@ public class Player implements Serializable {
         this.price = price;
     }
 
-    public void showPlayerInfo(){
-
-        System.out.printf("  %25s %20s %15s ",name,club.getName(),country);
-        System.out.printf("%15s , %-3d %3d yrs %5.2f meters %10.2f $\n",position,number,age,height,salary);
-        //System.out.println("----------------------------------------------------------------------------------------------------------------------------");
-
-
+    public Player(Player p) {
+        name = p.name;
+        country = p.country;
+        club = p.club;
+        age = p.age;
+        number = p.number;
+        position = p.position;
+        height = p.height;
+        salary = p.salary;
+        isBeingSold = p.isBeingSold;
+        id = p.id;
+        price = p.price;
     }
+
+    public Player(){}
 
 
 }

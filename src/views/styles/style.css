@@ -9,6 +9,19 @@
     -fx-border-width: 0 0 2 0;
 }
 
+.text-field2 {
+    -fx-prompt-text-fill: grey;
+    -fx-border-color: #666666;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+.text-field2:focused {
+    -fx-border-color: #EEEEEE ;
+    -fx-border-width: 0 0 2 0;
+}
+
+
 .menu-button{
     -fx-background-color: transparent;
 }
