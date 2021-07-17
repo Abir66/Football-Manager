@@ -38,7 +38,6 @@ public class ReadThreadServer implements Runnable {
                 }
 
                 if (o instanceof SellRequest){
-
                     new Thread(() -> {
                         serverRespond.sell((SellRequest)o);
                     }).start();
@@ -46,14 +45,13 @@ public class ReadThreadServer implements Runnable {
 
                 if (o instanceof BuyRequest){
                     new Thread(() -> {
-                        serverRespond.sell((SellRequest)o);
+                        serverRespond.buy((BuyRequest)o);
                     }).start();
                 }
 
-                if (o instanceof LoginRespond){
+                if (o instanceof LogoutRequest){
                     clientList.remove(networkUtil);
                 }
-
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -66,6 +64,3 @@ public class ReadThreadServer implements Runnable {
         }
     }
 }
-
-
-

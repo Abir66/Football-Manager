@@ -3,6 +3,7 @@ package controllers;
 import codes.Main;
 import data.LocalDatabase;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,7 +13,7 @@ import javafx.scene.control.TextField;
 import network.client.WriteThreadServer;
 import network.dto.LoginRequest;
 import network.dto.LoginRespond;
-import network.util.NetworkUtil;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -54,9 +55,8 @@ public class LoginController implements Initializable {
         WriteThreadServer.write(loginRequest);
     }
 
-    public void loginAction(LoginRespond loginRespond){
-
-        if (loginRespond.isAccess()){
+    public void loginAction(LoginRespond loginRespond) {
+        if (loginRespond.isAccess()) {
             try {
                 LocalDatabase localDatabase = LocalDatabase.getInstance(loginRespond);
                 main.showHomePage();
@@ -64,16 +64,12 @@ public class LoginController implements Initializable {
                 e.printStackTrace();
             }
         }
-        else {
-            errorLabel.setText("Credentials do not match. Please try again.");
-        }
+        errorLabel.setText("Credentials do not match. Please try again.");
     }
-
-    public void init(Main main){
+    public void init(Main main) {
         this.main = main;
         init();
     }
-
     void init() {
         clubName.clear();
         password.clear();

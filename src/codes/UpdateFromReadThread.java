@@ -17,7 +17,7 @@ public class UpdateFromReadThread {
     }
 
     public void loginAction(LoginRespond loginRespond){
-        Platform.runLater(new Runnable(){
+        Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 loginController.loginAction(loginRespond);
@@ -28,33 +28,26 @@ public class UpdateFromReadThread {
 
     public synchronized void updateFromServerRespond(UpdateRespond updateRespond){
         homepageController = LocalDatabase.getInstance().getHomepageController();
-        int refresher = 1; //1-> refresh home 2-> refresh market 3->both
+        int refresher = 0; //1-> refresh home 2-> refresh market 3->both
         if (updateRespond.getSellOrBuy() == 1){
             //sell
-            refresher = 2;
             LocalDatabase.getInstance().addToMarket(updateRespond.getPlayer());
             if (updateRespond.getSellerID()==LocalDatabase.getInstance().getClub().getId()) {
                 LocalDatabase.getInstance().removeFromList(updateRespond.getPlayer());
-                refresher=3;
+                refresher=1;
             }
         }
         else{
             //buy
-            refresher = 1;
             LocalDatabase.getInstance().removeFromMarket(updateRespond.getPlayer());
             if (updateRespond.getBuyerID()==LocalDatabase.getInstance().getClub().getId()){
                 LocalDatabase.getInstance().addToList(updateRespond.getPlayer());
-                refresher = 3;
+                refresher = 1;
             }
         }
 
         int finalRefresher = refresher;
-        Platform.runLater(new Runnable(){
-            @Override
-            public void run() {
-                homepageController.getHomepageUpdater().refreshGUI(finalRefresher);
-            }
-        });
+        homepageController.getHomepageUpdater().refreshGUI(finalRefresher);
     }
 
 

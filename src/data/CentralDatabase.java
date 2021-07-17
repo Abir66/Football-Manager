@@ -108,6 +108,7 @@ public class CentralDatabase {
         if (player.isBeingSold() || player.getClub().getId() != sellRequest.getSellerId()) return null;
         player.setBeingSold(true);
         player.setPrice(sellRequest.getPrice());
+        clubs.get(sellRequest.getSellerId()).removePlayer(player);
         marketList.add(player);
         return player;
     }

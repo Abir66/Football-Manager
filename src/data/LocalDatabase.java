@@ -36,10 +36,10 @@ public class LocalDatabase {
     public static LocalDatabase getInstance(LoginRespond loginRespond) {
         if (instance == null) {
             instance = new LocalDatabase();
-            instance.club = loginRespond.getClub();
-            instance.clubPlayers = loginRespond.getClub().getPlayers();
-            instance.marketPlayers = loginRespond.getMarketList();
         }
+        instance.club = loginRespond.getClub();
+        instance.clubPlayers = loginRespond.getClub().getPlayers();
+        instance.marketPlayers = loginRespond.getMarketList();
         return instance;
     }
 
@@ -66,13 +66,13 @@ public class LocalDatabase {
         for (String s : playerNames) {
             for (Player p : players) {
                 if (s.strip().equalsIgnoreCase(p.getName())) {
-                     l.add(p);
+                    l.add(p);
                 }
             }
         }
         return l;
     }
-    
+
     public List<Player> searchPlayerByPosition(String position) {
         String[] positions = position.split(",");
         List<Player> l = new ArrayList<>();
@@ -210,7 +210,6 @@ public class LocalDatabase {
         }
     }
     public void removeFromMarket(Player player){
-        System.out.println("playerid " + player.getId());
         for (int i = 0; i < marketPlayers.size(); i++) {
             if(marketPlayers.get(i).getId() == player.getId()){
                 marketPlayers.remove(i);

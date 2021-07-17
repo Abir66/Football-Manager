@@ -23,7 +23,7 @@ public class ServerRespond {
     public LoginRespond checkLogin(LoginRequest request){
         Club club = CentralDatabase.getInstance().checkClub(request.getClubName());
         if (club == null || !club.getPassword().equals(request.getPassword())){
-            return new LoginRespond(false,new Club(),new ArrayList<Player>());
+            return new LoginRespond(false,null,new ArrayList<Player>());
         }
         else {
             return new LoginRespond(true, club,CentralDatabase.getInstance().getMarketList());

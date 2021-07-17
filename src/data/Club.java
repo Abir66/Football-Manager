@@ -51,4 +51,15 @@ public class Club implements Serializable {
     public List<Player> getPlayers() {
         return players;
     }
+
+    public Club(Club c){
+        name = c.name;
+        id = c.id;
+        password = c.password;
+        players = c.players;
+    }
+
+    public void removePlayer(Player player){
+        players.remove(player);
+    }
 }

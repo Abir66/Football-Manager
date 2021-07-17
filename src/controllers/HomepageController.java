@@ -271,8 +271,13 @@ public class HomepageController{
 
     public GridPane getGrid() { return grid; }
 
-    public void setMessageLabel(String message){
+    synchronized public void setMessageLabel(String message){
+        if(message.isEmpty()) {
+            messageLabel.setVisible(false);
+            return;
+        }
         messageLabel.setText(message);
+        messageLabel.setVisible(true);
     }
 
     public HomepageUpdater getHomepageUpdater() {

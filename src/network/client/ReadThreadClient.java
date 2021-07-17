@@ -29,6 +29,7 @@ public class ReadThreadClient implements Runnable {
                 Object o = networkUtil.read();
 
                 if (o instanceof LoginRespond) {
+                    LoginRespond log = (LoginRespond) o;
                     update.loginAction((LoginRespond) o);
                 }
 
