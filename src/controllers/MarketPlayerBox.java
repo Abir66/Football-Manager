@@ -1,7 +1,6 @@
 package controllers;
 
 import data.Club;
-import data.LocalDatabase;
 import data.Player;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
@@ -12,9 +11,8 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.stage.StageStyle;
+import network.client.WriteThreadServer;
 import network.dto.BuyRequest;
-import network.dto.SellRequest;
-import network.util.NetworkUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -59,12 +57,7 @@ public class MarketPlayerBox implements Initializable {
 
     @FXML
     void buy(ActionEvent event) {
-        try {
-            NetworkUtil networkUtil = LocalDatabase.getInstance().getNetworkUtil();
-            networkUtil.write(new BuyRequest(player.getId(), club.getId()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        WriteThreadServer.write(new BuyRequest(player.getId(), club.getId()));
     }
 
     @Override

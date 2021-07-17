@@ -4,7 +4,6 @@ import controllers.*;
 import data.Club;
 import data.LocalDatabase;
 import data.Player;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Dialog;
@@ -154,7 +153,7 @@ public class HomepageUpdater {
 
             if (list==1){
                 PlayerBox playerBox = fxmlLoader.getController();
-                playerBox.inti(players.get(i), localDatabase.getNetworkUtil());
+                playerBox.inti(players.get(i));
             }
             else{
                 MarketPlayerBox marketPlayerBox = fxmlLoader.getController();

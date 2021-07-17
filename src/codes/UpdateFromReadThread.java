@@ -24,12 +24,10 @@ public class UpdateFromReadThread {
             }
         });
         System.out.println("login Successfull");
-
     }
 
     public synchronized void updateFromServerRespond(UpdateRespond updateRespond){
         homepageController = LocalDatabase.getInstance().getHomepageController();
-        //System.out.println(updateRespond.getSellOrBuy());
         int refresher = 1; //1-> refresh home 2-> refresh market 3->both
         if (updateRespond.getSellOrBuy() == 1){
             //sell
@@ -43,8 +41,6 @@ public class UpdateFromReadThread {
         else{
             //buy
             refresher = 1;
-            //System.out.println("buying");
-            //System.out.println(updateRespond.getPlayer().getName() + " " + updateRespond.getPlayer().getClub().getName());
             LocalDatabase.getInstance().removeFromMarket(updateRespond.getPlayer());
             if (updateRespond.getBuyerID()==LocalDatabase.getInstance().getClub().getId()){
                 LocalDatabase.getInstance().addToList(updateRespond.getPlayer());

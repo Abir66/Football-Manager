@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import network.client.WriteThreadServer;
 import network.dto.LoginRequest;
 import network.dto.LoginRespond;
 import network.util.NetworkUtil;
@@ -18,7 +19,7 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable {
 
     private Main main;
-    private NetworkUtil networkUtil;
+
 
     @FXML
     private MFXButton signIn;
@@ -35,7 +36,6 @@ public class LoginController implements Initializable {
     @FXML
     private TextField clubName;
 
-
     @FXML
     void loginAction(ActionEvent event) {
         String userName = clubName.getText();
@@ -49,24 +49,16 @@ public class LoginController implements Initializable {
     }
 
     void validate(String userName, String password) {
-
         if (userName.isEmpty() && password.isEmpty()) return;
-        try {
-            LoginRequest loginRequest = new LoginRequest(userName, password);
-            networkUtil.write(loginRequest);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        LoginRequest loginRequest = new LoginRequest(userName, password);
+        WriteThreadServer.write(loginRequest);
     }
 
     public void loginAction(LoginRespond loginRespond){
 
         if (loginRespond.isAccess()){
             try {
-                //System.out.println(loginRespond.getClub().getPlayers().size());
-                LocalDatabase localDatabase = LocalDatabase.getInstance(loginRespond,networkUtil);
-                //System.out.println("sdfsdf" + loginRespond.getClub().getPlayers().size());
-                //System.out.println("login controller" + localDatabase.getPlayers().size());
+                LocalDatabase localDatabase = LocalDatabase.getInstance(loginRespond);
                 main.showHomePage();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -77,9 +69,8 @@ public class LoginController implements Initializable {
         }
     }
 
-    public void init(Main main, NetworkUtil networkUtil){
+    public void init(Main main){
         this.main = main;
-        this.networkUtil = networkUtil;
         init();
     }
 

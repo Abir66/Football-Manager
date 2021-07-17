@@ -1,7 +1,6 @@
 package controllers;
 
 
-import data.LocalDatabase;
 import data.Player;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
@@ -10,9 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import network.client.WriteThreadServer;
 import network.dto.SellRequest;
-
-import java.io.IOException;
 
 public class ConfirmSell {
 
@@ -51,6 +49,7 @@ public class ConfirmSell {
     void sell(ActionEvent event) {
         String priceString = priceField.getText();
         if (priceString.isEmpty()) return;
+
         try{
             price = Double.parseDouble(priceString);
         }catch (Exception e){
@@ -63,13 +62,7 @@ public class ConfirmSell {
             return;
         }
 
-        try {
-            //System.out.println(player.getName() + player.getClub().getName() + player.getClub().getId());
-            LocalDatabase.getInstance().getNetworkUtil().write(new SellRequest(player.getId(), player.getClub().getId(), price));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        WriteThreadServer.write(new SellRequest(player.getId(), player.getClub().getId(), price));
         Node node = (Node) event.getSource();
         Stage thisStage = (Stage) node.getScene().getWindow();
         thisStage.close();

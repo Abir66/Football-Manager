@@ -51,9 +51,8 @@ public class Main extends Application {
 
         // Loading the controller
         LoginController controller = loader.getController();
-        controller.init(this,networkUtil);
+        controller.init(this);
         updater.setLoginController(controller);
-
 
         // Set the primary stage
         stage.setTitle("Football Manager - Login");
@@ -80,11 +79,6 @@ public class Main extends Application {
     void closeProgram(){
         try {
             networkUtil.write(new LogoutRequest());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //readThreadClient.stopThread();
-        try {
             networkUtil.closeConnection();
         } catch (IOException e) {
             e.printStackTrace();

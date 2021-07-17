@@ -12,9 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import network.client.WriteThreadServer;
 import network.dto.LogoutRequest;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class HomepageController{
     private Main main;
     HomepageUpdater homepageUpdater;
     Club club;
-    int list = 0; //1->club players, 2->marketplayers
+    int list = 0; //1 -> club players, 2 -> market players
 
     @FXML
     private MFXButton homeButton;
@@ -249,11 +249,7 @@ public class HomepageController{
 
     @FXML
     void logOut(ActionEvent event) {
-        try {
-            LocalDatabase.getInstance().getNetworkUtil().write(new LogoutRequest());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        WriteThreadServer.write(new LogoutRequest());
         try {
             main.showLoginPage();
         } catch (Exception e) {

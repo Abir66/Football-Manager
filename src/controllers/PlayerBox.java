@@ -20,7 +20,6 @@ import java.util.ResourceBundle;
 public class PlayerBox {
 
     private Player player;
-    private NetworkUtil networkUtil;
     double price = 5;
 
     @FXML
@@ -77,9 +76,8 @@ public class PlayerBox {
         return player;
     }
 
-    public void inti(Player player, NetworkUtil networkUtil) {
+    public void inti(Player player) {
         this.player = player;
-        this.networkUtil = networkUtil;
         updatePlayerInfoUI();
     }
 

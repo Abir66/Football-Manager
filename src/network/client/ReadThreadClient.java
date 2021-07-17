@@ -21,9 +21,6 @@ public class ReadThreadClient implements Runnable {
         thr.start();
     }
 
-    public void stopThread(){
-        thr.stop();
-    }
 
     public void run() {
         try {

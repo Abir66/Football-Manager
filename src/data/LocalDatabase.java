@@ -12,7 +12,6 @@ public class LocalDatabase {
     List<Player> clubPlayers = new ArrayList();
     List<Player> players = new ArrayList();
     List<Player> marketPlayers = new ArrayList<>();
-    NetworkUtil networkUtil;
     HomepageController homepageController;
 
 
@@ -34,10 +33,9 @@ public class LocalDatabase {
     }
 
 
-    public static LocalDatabase getInstance(LoginRespond loginRespond, NetworkUtil networkUtil) {
+    public static LocalDatabase getInstance(LoginRespond loginRespond) {
         if (instance == null) {
             instance = new LocalDatabase();
-            instance.networkUtil = networkUtil;
             instance.club = loginRespond.getClub();
             instance.clubPlayers = loginRespond.getClub().getPlayers();
             instance.marketPlayers = loginRespond.getMarketList();
@@ -51,10 +49,6 @@ public class LocalDatabase {
 
     public HomepageController getHomepageController() {
         return homepageController;
-    }
-
-    public NetworkUtil getNetworkUtil() {
-        return networkUtil;
     }
 
     public void setListToShow(int i){
@@ -78,8 +72,7 @@ public class LocalDatabase {
         }
         return l;
     }
-
-
+    
     public List<Player> searchPlayerByPosition(String position) {
         String[] positions = position.split(",");
         List<Player> l = new ArrayList<>();
