@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -21,7 +21,7 @@
          <children>
             <VBox layoutY="320.0" prefHeight="112.0" prefWidth="195.0" spacing="10.0">
                <children>
-                  <MFXButton fx:id="homeButton" onAction="#showHome" prefHeight="78.0" prefWidth="195.0" styleClass="menu-button" stylesheets="@../styles/style.css" text="Home" textFill="WHITE">
+                  <Button fx:id="homeButton" onAction="#showHome" prefHeight="78.0" prefWidth="195.0" styleClass="black-button" stylesheets="@../styles/style.css" text="Home" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="17.0" />
                      </font>
@@ -35,8 +35,8 @@
                            </image>
                         </ImageView>
                      </graphic>
-                  </MFXButton>
-                  <MFXButton fx:id="marketButton" layoutX="10.0" layoutY="57.0" onAction="#showMarket" prefHeight="135.0" prefWidth="195.0" styleClass="menu-button" stylesheets="@../styles/style.css" text="Market" textFill="WHITE">
+                  </Button>
+                  <Button fx:id="marketButton" layoutX="10.0" layoutY="57.0" onAction="#showMarket" prefHeight="135.0" prefWidth="195.0" styleClass="black-button" stylesheets="@../styles/style.css" text="Market" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="17.0" />
                      </font>
@@ -50,7 +50,7 @@
                            </image>
                         </ImageView>
                      </graphic>
-                  </MFXButton>
+                  </Button>
                </children>
             </VBox>
             <Pane layoutX="-2.0" layoutY="-2.0" prefHeight="211.0" prefWidth="200.0">
@@ -69,7 +69,7 @@
             </Pane>
             <Pane layoutY="494.0" prefHeight="211.0" prefWidth="195.0">
                <children>
-                  <MFXButton fx:id="marketButton1" layoutY="81.0" onAction="#logOut" prefHeight="54.0" prefWidth="195.0" styleClass="menu-button" stylesheets="@../styles/style.css" text="Log Out" textFill="WHITE">
+                  <Button fx:id="marketButton1" layoutY="81.0" onAction="#logOut" prefHeight="54.0" prefWidth="195.0" styleClass="black-button" stylesheets="@../styles/style.css" text="Log Out" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="17.0" />
                      </font>
@@ -80,7 +80,7 @@
                            </image>
                         </ImageView>
                      </graphic>
-                  </MFXButton>
+                  </Button>
                </children>
             </Pane>
          </children>
@@ -114,53 +114,53 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <MFXButton fx:id="nameSearch" onAction="#nameSearchPressed" prefHeight="45.0" prefWidth="146.0" style="-fx-background-color: #252525;" text="Name" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                  <Button fx:id="nameSearch" onAction="#nameSearchPressed" prefHeight="45.0" prefWidth="146.0" styleClass="black-button" stylesheets="@../styles/style.css" text="Name" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
-                  </MFXButton>
-                  <MFXButton fx:id="positionSearch" layoutX="10.0" layoutY="145.0" onAction="#positionSearchPressed" prefHeight="45.0" prefWidth="146.0" style="-fx-background-color: #252525;" text="Position" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                  </Button>
+                  <Button fx:id="positionSearch" layoutX="10.0" layoutY="145.0" onAction="#positionSearchPressed" prefHeight="45.0" prefWidth="146.0" styleClass="black-button" stylesheets="@../styles/style.css" text="Position" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
-                  </MFXButton>
-                  <MFXButton fx:id="countrySearch" layoutX="10.0" layoutY="196.0" onAction="#countrySearchPressed" prefHeight="45.0" prefWidth="146.0" style="-fx-background-color: #252525;" text="Country" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                  </Button>
+                  <Button fx:id="countrySearch" layoutX="10.0" layoutY="196.0" onAction="#countrySearchPressed" prefHeight="45.0" prefWidth="146.0" styleClass="black-button" stylesheets="@../styles/style.css" text="Country" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
-                  </MFXButton>
-                  <MFXButton fx:id="salarySearch" layoutX="10.0" layoutY="248.0" onAction="#salarySearchPressed" prefHeight="45.0" prefWidth="146.0" style="-fx-background-color: #252525;" text="Salary Range" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                  </Button>
+                  <Button fx:id="salarySearch" layoutX="10.0" layoutY="248.0" onAction="#salarySearchPressed" prefHeight="45.0" prefWidth="146.0" styleClass="black-button" stylesheets="@../styles/style.css" text="Salary Range" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
-                  </MFXButton>
+                  </Button>
                   <Pane prefHeight="67.0" prefWidth="146.0" />
-                  <MFXButton fx:id="maxAge" layoutX="10.0" layoutY="299.0" onAction="#maxAgePressed" prefHeight="45.0" prefWidth="146.0" style="-fx-background-color: #252525;" text="Max age" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                  <Button fx:id="maxAge" layoutX="10.0" layoutY="299.0" onAction="#maxAgePressed" prefHeight="45.0" prefWidth="146.0" styleClass="black-button" stylesheets="@../styles/style.css" text="Max age" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
-                  </MFXButton>
-                  <MFXButton fx:id="maxHeight" layoutX="10.0" layoutY="350.0" onAction="#maxHeightPressed" prefHeight="45.0" prefWidth="146.0" style="-fx-background-color: #252525;" text="Max Height" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                  </Button>
+                  <Button fx:id="maxHeight" layoutX="10.0" layoutY="350.0" onAction="#maxHeightPressed" prefHeight="45.0" prefWidth="146.0" styleClass="black-button" stylesheets="@../styles/style.css" text="Max Height" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
-                  </MFXButton>
-                  <MFXButton fx:id="maxSalary" layoutX="10.0" layoutY="401.0" onAction="#maxSalaryPressed" prefHeight="45.0" prefWidth="146.0" style="-fx-background-color: #252525;" text="Max Salary" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                  </Button>
+                  <Button fx:id="maxSalary" layoutX="10.0" layoutY="401.0" onAction="#maxSalaryPressed" prefHeight="45.0" prefWidth="146.0" styleClass="black-button" stylesheets="@../styles/style.css" text="Max Salary" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
-                  </MFXButton>
+                  </Button>
                   <Pane layoutX="10.0" layoutY="284.0" prefHeight="66.0" prefWidth="146.0" />
-                  <MFXButton fx:id="countryWiseButton" layoutX="10.0" layoutY="452.0" onAction="#countryWisePressed" prefHeight="75.0" prefWidth="146.0" style="-fx-background-color: #252525;" text="Country-wise Player Count" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                  <Button fx:id="countryWiseButton" layoutX="10.0" layoutY="452.0" onAction="#countryWisePressed" prefHeight="75.0" prefWidth="146.0" styleClass="black-button" stylesheets="@../styles/style.css" text="Country-wise Player Count" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
-                  </MFXButton>
-                  <MFXButton fx:id="totalSalaryButton" layoutX="10.0" layoutY="504.0" onAction="#totalSalaryPressed" prefHeight="45.0" prefWidth="146.0" style="-fx-background-color: #252525;" text="Total Salary" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                  </Button>
+                  <Button fx:id="totalSalaryButton" layoutX="10.0" layoutY="504.0" onAction="#totalSalaryPressed" prefHeight="45.0" prefWidth="146.0" styleClass="black-button" stylesheets="@../styles/style.css" text="Total Salary" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
-                  </MFXButton>
+                  </Button>
                </children>
             </VBox>
             <Label fx:id="clubNameLabel" layoutX="55.0" layoutY="40.0" prefHeight="54.0" prefWidth="343.0" text="Manchaster United">
@@ -173,24 +173,24 @@
                   <Font size="15.0" />
                </font>
             </TextField>
-            <MFXButton fx:id="searchIcon" depthLevel="LEVEL1" layoutX="714.0" layoutY="47.0" onAction="#searchPressed" prefHeight="34.0" prefWidth="42.0" style="-fx-background-color: #252525;" text=" " visible="false">
+            <Button fx:id="searchIcon" layoutX="714.0" layoutY="47.0" onAction="#searchPressed" prefHeight="34.0" prefWidth="42.0" styleClass="black-button" stylesheets="@../styles/style.css" text=" " visible="false">
                <graphic>
                   <ImageView fitHeight="27.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/search.png" />
                      </image>
                   </ImageView>
-               </graphic></MFXButton>
+               </graphic></Button>
             <Label fx:id="messageLabel" layoutX="55.0" layoutY="94.0" prefHeight="34.0" prefWidth="348.0" text="Number cannot be negative" textFill="#d51515" visible="false">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <MFXButton fx:id="cancelSearch" buttonType="RAISED" depthLevel="LEVEL1" layoutX="630.0" layoutY="96.0" onAction="#cancelSearchPressed" style="-fx-background-color: #FF5252;" text="Cancel Search" textFill="WHITE" visible="false">
+            <Button fx:id="cancelSearch" layoutX="630.0" layoutY="96.0" onAction="#cancelSearchPressed" styleClass="red-button" stylesheets="@../styles/style.css" text="Cancel Search" textFill="WHITE" visible="false">
                <font>
                   <Font size="18.0" />
                </font>
-            </MFXButton>
+            </Button>
             <Label fx:id="notFoundLabel" alignment="CENTER" layoutX="236.0" layoutY="206.0" prefHeight="54.0" prefWidth="343.0" text="Sorry. No player found" textAlignment="CENTER" visible="false">
                <font>
                   <Font name="Agency FB Bold" size="28.0" />

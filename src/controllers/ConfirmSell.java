@@ -2,14 +2,14 @@ package controllers;
 
 
 import data.Player;
-import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import network.client.WriteThreadServer;
+import network.client.WriteThreadClient;
 import network.dto.SellRequest;
 
 public class ConfirmSell {
@@ -33,10 +33,10 @@ public class ConfirmSell {
     private Label errorLabel;
 
     @FXML
-    private MFXButton cancelButton;
+    private Button cancelButton;
 
     @FXML
-    private MFXButton sellButton;
+    private Button sellButton;
 
     @FXML
     void cancel(ActionEvent event) {
@@ -62,7 +62,7 @@ public class ConfirmSell {
             return;
         }
 
-        WriteThreadServer.write(new SellRequest(player.getId(), player.getClub().getId(), price));
+        WriteThreadClient.write(new SellRequest(player.getId(), player.getClub().getId(), price));
         Node node = (Node) event.getSource();
         Stage thisStage = (Stage) node.getScene().getWindow();
         thisStage.close();

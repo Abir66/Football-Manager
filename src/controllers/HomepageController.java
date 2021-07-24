@@ -5,20 +5,21 @@ import codes.Main;
 import data.Club;
 import data.LocalDatabase;
 import data.Player;
-import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import network.client.WriteThreadServer;
+import network.client.WriteThreadClient;
 import network.dto.LogoutRequest;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomepageController{
+
 
     List<Player> players = new ArrayList<>();
     private int searchOption = 0;
@@ -29,13 +30,13 @@ public class HomepageController{
     int list = 0; //1 -> club players, 2 -> market players
 
     @FXML
-    private MFXButton homeButton;
+    private Button homeButton;
 
     @FXML
-    private MFXButton searchButton;
+    private Button searchButton;
 
     @FXML
-    private MFXButton marketButton;
+    private Button marketButton;
 
     @FXML
     private ScrollPane scroll;
@@ -44,31 +45,31 @@ public class HomepageController{
     private GridPane grid;
 
     @FXML
-    private MFXButton nameSearch;
+    private Button nameSearch;
 
     @FXML
-    private MFXButton positionSearch;
+    private Button positionSearch;
 
     @FXML
-    private MFXButton countrySearch;
+    private Button countrySearch;
 
     @FXML
-    private MFXButton salarySearch;
+    private Button salarySearch;
 
     @FXML
-    private MFXButton maxAge;
+    private Button maxAge;
 
     @FXML
-    private MFXButton maxHeight;
+    private Button maxHeight;
 
     @FXML
-    private MFXButton maxSalary;
+    private Button maxSalary;
 
     @FXML
-    private MFXButton countryWiseButton;
+    private Button countryWiseButton;
 
     @FXML
-    private MFXButton totalSalaryButton;
+    private Button totalSalaryButton;
 
     @FXML
     private Label clubNameLabel;
@@ -77,13 +78,13 @@ public class HomepageController{
     private TextField textField;
 
     @FXML
-    private MFXButton searchIcon;
+    private Button searchIcon;
 
     @FXML
     private Label messageLabel;
 
     @FXML
-    private MFXButton cancelSearch;
+    private Button cancelSearch;
 
     @FXML
     private Label notFoundLabel;
@@ -249,7 +250,7 @@ public class HomepageController{
 
     @FXML
     void logOut(ActionEvent event) {
-        WriteThreadServer.write(new LogoutRequest());
+        WriteThreadClient.write(new LogoutRequest());
         try {
             main.showLoginPage();
         } catch (Exception e) {

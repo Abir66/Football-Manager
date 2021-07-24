@@ -2,6 +2,7 @@ package codes;
 
 import controllers.HomepageController;
 import controllers.LoginController;
+import controllers.SignUpController;
 import data.LocalDatabase;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -21,12 +22,6 @@ public class Main extends Application {
     private NetworkUtil networkUtil;
     private ReadThreadClient readThreadClient;
     private UpdateFromReadThread updater = new UpdateFromReadThread();
-
-
-    public Stage getStage() {
-        return stage;
-    }
-
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -52,6 +47,23 @@ public class Main extends Application {
         LoginController controller = loader.getController();
         controller.init(this);
         updater.setLoginController(controller);
+
+        // Set the primary stage
+        stage.setTitle("Football Manager - Login");
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    public void showSignUpPage() throws Exception {
+        // XML Loading using FXMLLoader
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/views/fxml/signUp.fxml"));
+        Parent root = loader.load();
+
+        // Loading the controller
+        SignUpController controller = loader.getController();
+        controller.init(this);
+        updater.setSignUpController(controller);
 
         // Set the primary stage
         stage.setTitle("Football Manager - Login");

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class LoginRespond implements Serializable {
     boolean access = false;
-    Club club;
+    Club club = new Club();
     List<Player> marketList = new ArrayList<>();
 
     public LoginRespond(boolean access, Club club, List<Player> marketList) {

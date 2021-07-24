@@ -20,7 +20,6 @@ Joe Gomez,England,24,1.88,Liverpool,Midfielder,12,190000,true,580000.00
 Fabinho,Brazil,27,1.88,Liverpool,Defender,3,180000,false,0.00
 James Milner,England,35,1.75,Liverpool,Midfielder,7,175000.0,false,0.00
 Sadio Mane,Senegal,29,1.74,Liverpool,Forward,10,185000,true,450000.00
-Mohamed Salah,Egypt,29,1.75,Liverpool,Forward,11,190000.0,false,0.0
 Andrew Robertson,Scotland,27,1.78,Liverpool,Defender,26,140000.0,false,0.00
 Hector Bellerin,Spain,26,1.78,Arsenal,Defender,2,110000.0,false,0.0
 Granit Xhaka,Switzerland,28,1.85,Arsenal,Midfielder,34,100000.0,false,0.0

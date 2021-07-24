@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -25,16 +25,16 @@
             </Text>
          </children>
       </Pane>
-      <MFXButton fx:id="signIn" buttonType="RAISED" layoutX="637.0" layoutY="424.0" onAction="#loginAction" prefHeight="52.0" prefWidth="137.0" style="-fx-background-color: #252525;" text="Sign In" textFill="WHITE">
+      <Button fx:id="signIn" layoutX="637.0" layoutY="424.0" onAction="#loginAction" prefHeight="52.0" prefWidth="137.0" styleClass="black-button" stylesheets="@../styles/style.css" text="Sign In" textFill="WHITE">
          <font>
             <Font size="19.0" />
          </font>
-      </MFXButton>
-      <MFXButton fx:id="reset" buttonType="RAISED" focusTraversable="false" layoutX="827.0" layoutY="424.0" onAction="#resetAction" prefHeight="52.0" prefWidth="137.0" style="-fx-background-color: #252525;" text="Reset" textFill="WHITE">
+      </Button>
+      <Button fx:id="signUpButton" focusTraversable="false" layoutX="827.0" layoutY="424.0" onAction="#signUp" prefHeight="52.0" prefWidth="137.0" styleClass="black-button" stylesheets="@../styles/style.css" text="Sign Up" textFill="WHITE">
          <font>
             <Font size="19.0" />
          </font>
-      </MFXButton>
+      </Button>
       <Label fx:id="errorLabel" layoutX="639.0" layoutY="190.0" prefHeight="38.0" prefWidth="325.0" textAlignment="CENTER" textFill="#ec3030">
          <font>
             <Font size="14.0" />

@@ -2,16 +2,16 @@ package controllers;
 
 import data.Club;
 import data.Player;
-import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.stage.StageStyle;
-import network.client.WriteThreadServer;
+import network.client.WriteThreadClient;
 import network.dto.BuyRequest;
 
 import java.io.IOException;
@@ -30,10 +30,10 @@ public class MarketPlayerBox implements Initializable {
     private Label clubRow;
 
     @FXML
-    private MFXButton buyButton;
+    private Button buyButton;
 
     @FXML
-    private MFXButton detailsButton;
+    private Button detailsButton;
 
 
 
@@ -57,7 +57,7 @@ public class MarketPlayerBox implements Initializable {
 
     @FXML
     void buy(ActionEvent event) {
-        WriteThreadServer.write(new BuyRequest(player.getId(), club.getId()));
+        WriteThreadClient.write(new BuyRequest(player.getId(), club.getId()));
     }
 
     @Override
@@ -72,7 +72,7 @@ public class MarketPlayerBox implements Initializable {
     public void inti(Player player, Club club) {
         this.player = player;
         this.club = club;
-        if (player.getClub().getId() == club.getId()) buyButton.setVisible(false);
+        if (player.getClub().getId() == club.getId()) buyButton.setDisable(true);
         updatePlayerInfoUI();
     }
 

@@ -10,20 +10,21 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import network.client.WriteThreadClient;
-import network.dto.LoginRequest;
 import network.dto.LoginRespond;
+import network.dto.SignUpRequest;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable {
+public class SignUpController implements Initializable {
 
     private Main main;
 
     @FXML
-    private Button signIn;
+    private Button signUp;
 
     @FXML
-    private Button signUpButton;
+    private Button reset;
 
     @FXML
     private Label errorLabel;
@@ -35,44 +36,54 @@ public class LoginController implements Initializable {
     private TextField clubName;
 
     @FXML
-    void loginAction(ActionEvent event) {
-        String userName = clubName.getText().strip();
-        String passwordText = password.getText();
-        validate(userName, passwordText);
-    }
+    private PasswordField password2;
 
     @FXML
-    void signUp(ActionEvent event) {
+    private Button backButton;
+
+    @FXML
+    void back(ActionEvent event) {
         try {
-            main.showSignUpPage();
+            main.showLoginPage();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    void validate(String userName, String password) {
-        if (userName.isEmpty() || password.isEmpty()) return;
-        LoginRequest loginRequest = new LoginRequest(userName, password);
-        WriteThreadClient.write(loginRequest);
+    @FXML
+    void signUpAction(ActionEvent event) {
+        String userName = clubName.getText().strip();
+        String passwordText = password.getText();
+        String passwordText2 = password2.getText();
+        if (userName.isEmpty() || passwordText.isEmpty() || passwordText2.isEmpty()) return;
+        if(!passwordText.equals(passwordText2)) {
+            errorLabel.setText("Passwords do not match");
+            return;
+        }
+        WriteThreadClient.write(new SignUpRequest(userName,passwordText));
     }
 
-    public void loginAction(LoginRespond loginRespond) {
+    @FXML
+    void resetAction(ActionEvent event) {
+        init();
+    }
+
+    public void signUpAction(LoginRespond loginRespond) {
         if (loginRespond.isAccess()) {
             try {
-                LocalDatabase localDatabase = LocalDatabase.getInstance(loginRespond);
+                LocalDatabase.getInstance(loginRespond);
                 main.showHomePage();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        errorLabel.setText("Credentials do not match. Please try again.");
+        errorLabel.setText("Club with name " + clubName.getText() + " already exists.");
     }
 
     public void init(Main main) {
         this.main = main;
         init();
     }
-
     void init() {
         clubName.clear();
         password.clear();
@@ -84,4 +95,6 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         init();
     }
+
+
 }

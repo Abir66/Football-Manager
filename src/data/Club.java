@@ -23,6 +23,11 @@ public class Club implements Serializable {
         name = s;
     }
 
+    public Club(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
+
     public String getName() {
         return name;
     }
@@ -52,14 +57,9 @@ public class Club implements Serializable {
         return players;
     }
 
-    public Club(Club c){
-        name = c.name;
-        id = c.id;
-        password = c.password;
-        players = c.players;
-    }
-
     public void removePlayer(Player player){
         players.remove(player);
     }
+
+
 }

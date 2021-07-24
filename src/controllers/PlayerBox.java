@@ -1,21 +1,17 @@
 package controllers;
 
 import data.Player;
-import io.github.palexdev.materialfx.controls.MFXButton;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.stage.StageStyle;
-import network.dto.SellRequest;
-import network.util.NetworkUtil;
-
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+
 
 public class PlayerBox {
 
@@ -29,10 +25,10 @@ public class PlayerBox {
     private Label clubRow;
 
     @FXML
-    private MFXButton sellButton;
+    private Button sellButton;
 
     @FXML
-    private MFXButton detailsButton;
+    private Button detailsButton;
 
     @FXML
     void details(ActionEvent event) {

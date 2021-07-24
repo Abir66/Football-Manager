@@ -2,27 +2,18 @@ package network.server;
 
 import network.util.NetworkUtil;
 import java.io.IOException;
-import java.util.*;
 import network.dto.*;
-
 
 public class ReadThreadServer implements Runnable {
     private Thread thr;
     private NetworkUtil networkUtil;
-    ServerRespond serverRespond;
-    private List<NetworkUtil> clientList;
+    WriteThreadServer writeThreadServer;
 
-
-    public ReadThreadServer(List<NetworkUtil> clientList, NetworkUtil networkUtil, ServerRespond serverRespond) {
-        this.clientList = clientList;
+    public ReadThreadServer(NetworkUtil networkUtil, WriteThreadServer writeThreadServer) {
         this.networkUtil = networkUtil;
-        this.serverRespond = serverRespond;
+        this.writeThreadServer = writeThreadServer;
         this.thr = new Thread(this);
         thr.start();
-    }
-
-    public void stopThread(){
-        thr.interrupt();
     }
 
     public void run() {
@@ -31,26 +22,34 @@ public class ReadThreadServer implements Runnable {
                 Object o = networkUtil.read();
                 System.out.println(o);
 
-                if(o instanceof LoginRequest){
-                    LoginRespond loginRespond = serverRespond.checkLogin((LoginRequest)o);
-                    if (loginRespond.isAccess()) clientList.add(networkUtil);
-                    networkUtil.write(serverRespond.checkLogin((LoginRequest)o));
-                }
-
-                if (o instanceof SellRequest){
+                if (o instanceof LoginRequest) {
                     new Thread(() -> {
-                        serverRespond.sell((SellRequest)o);
+                        writeThreadServer.login((LoginRequest) o, networkUtil);
                     }).start();
                 }
 
-                if (o instanceof BuyRequest){
+                if (o instanceof SignUpRequest) {
                     new Thread(() -> {
-                        serverRespond.buy((BuyRequest)o);
+                        writeThreadServer.signUp((SignUpRequest) o, networkUtil);
                     }).start();
                 }
 
-                if (o instanceof LogoutRequest){
-                    clientList.remove(networkUtil);
+                if (o instanceof SellRequest) {
+                    new Thread(() -> {
+                        writeThreadServer.sell((SellRequest) o);
+                    }).start();
+                }
+
+                if (o instanceof BuyRequest) {
+                    new Thread(() -> {
+                        writeThreadServer.buy((BuyRequest) o);
+                    }).start();
+                }
+
+                if (o instanceof LogoutRequest) {
+                    new Thread(() -> {
+                        writeThreadServer.logout(networkUtil);
+                    }).start();
                 }
             }
         } catch (Exception e) {

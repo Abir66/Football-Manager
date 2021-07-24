@@ -2,6 +2,7 @@ package data;
 
 import network.dto.BuyRequest;
 import network.dto.SellRequest;
+import network.dto.SignUpRequest;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,7 +19,6 @@ public class CentralDatabase {
     private CentralDatabase() {
         try {
             readFromInputFile();
-            //writeToInputFile();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,7 +79,6 @@ public class CentralDatabase {
             else marketList.add(p);
         }
         br.close();
-        //System.out.println(players.size());
     }
 
     public void writeToInputFile() throws Exception {
@@ -99,6 +98,17 @@ public class CentralDatabase {
         return clubMap.get(club);
     }
 
+    public Club signUpClub(String clubName, String password) {
+        for (var club : clubs) {
+            if (club.getName().equals(clubName)) return null;
+        }
+        Club club = new Club(clubName, password);
+        clubMap.put(clubName, club);
+        club.setId(clubs.size());
+        clubs.add(club);
+        return club;
+    }
+
     public List<Player> getMarketList() {
         return marketList;
     }
@@ -113,9 +123,9 @@ public class CentralDatabase {
         return player;
     }
 
-    public synchronized Player buy(BuyRequest buyRequest){
+    public synchronized Player buy(BuyRequest buyRequest) {
         Player player = players.get(buyRequest.getPlayerId());
-        if(!player.isBeingSold()) return null;
+        if (!player.isBeingSold()) return null;
         player.setBeingSold(false);
         clubs.get(buyRequest.getBuyerId()).addPlayer(player);
         marketList.remove(player);

@@ -2,6 +2,7 @@ package network.client;
 
 import codes.UpdateFromReadThread;
 import network.dto.LoginRespond;
+import network.dto.SignUpRespond;
 import network.dto.UpdateRespond;
 import network.util.NetworkUtil;
 import java.io.IOException;
@@ -21,18 +22,19 @@ public class ReadThreadClient implements Runnable {
         thr.start();
     }
 
-
     public void run() {
         try {
-            int x = 0;
             while (true) {
                 Object o = networkUtil.read();
 
-                if (o instanceof LoginRespond) {
-                    LoginRespond log = (LoginRespond) o;
-                    update.loginAction((LoginRespond) o);
+                if (o instanceof SignUpRespond) {
+                    LoginRespond login = (SignUpRespond) o;
+                    update.signInAction((SignUpRespond) o);
                 }
-
+                else if (o instanceof LoginRespond) {
+                    LoginRespond login = (LoginRespond) o;
+                    update.loginAction(login);
+                }
                 if(o instanceof UpdateRespond){
                     update.updateFromServerRespond((UpdateRespond) o);
                 }

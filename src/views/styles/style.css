@@ -21,6 +21,30 @@
     -fx-border-width: 0 0 2 0;
 }
 
+.black-button{
+    -fx-background-color: #252525;
+}
+.black-button:hover {
+    -fx-background-color: #303030;
+}
+.black-button:pressed {
+    -fx-background-color: #424242;
+}
+
+.grey-button{
+    -fx-background-color: #424242;
+}
+.grey-button:pressed {
+    -fx-background-color: #505050;
+}
+
+.red-button{
+    -fx-background-color:  #FF5252;
+}
+.red-button:pressed {
+    -fx-background-color: #FF9090;
+}
+
 
 .menu-button{
     -fx-background-color: transparent;

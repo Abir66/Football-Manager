@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ServerRespond {
+public class WriteThreadClient {
 
 
     private List<NetworkUtil> clientList = new ArrayList<>();
 
-    public ServerRespond(List<NetworkUtil> clientList) {
+    public WriteThreadClient(List<NetworkUtil> clientList) {
         this.clientList = clientList;
     }
 

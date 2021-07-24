@@ -26,31 +26,33 @@ public class HomepageUpdater {
     int searchOption = 0;
     String searchString = null;
     Club club;
+    Dialog dialog = new Dialog();
+    TotalSalaryDialog totalSalaryDialog = null;
 
     public void setList(int list) {
         this.list = list;
         localDatabase.setListToShow(list);
     }
 
-    void search() {
+    synchronized void search() {
 
         if (searchOption == 0) {
-            new Thread(() -> { updateGUI(localDatabase.getPlayers()); }).start();
+            updateGUI(localDatabase.getPlayers());
         }
 
         else if (searchOption == 1) {
             if (searchString.strip().isEmpty()) return;
-            new Thread(() -> { updateGUI(localDatabase.searchPlayer(searchString)); }).start();
+            updateGUI(localDatabase.searchPlayer(searchString));
         }
 
         else if (searchOption == 2) {
             if (searchString.strip().isEmpty()) return;
-            new Thread(() -> { updateGUI(localDatabase.searchPlayerByPosition(searchString)); }).start();
+            updateGUI(localDatabase.searchPlayerByPosition(searchString));
         }
 
         else if (searchOption == 3) {
             if (searchString.strip().isEmpty()) return;
-            new Thread(() -> { updateGUI(localDatabase.searchPlayerByCountry(searchString)); }).start();
+            updateGUI(localDatabase.searchPlayerByCountry(searchString));
         }
 
         else if (searchOption == 4) {
@@ -83,56 +85,64 @@ public class HomepageUpdater {
                 homepageController.setMessageLabel(null);
                 double finalFrom = from;
                 double finalTo = to;
-                new Thread(() -> { updateGUI(localDatabase.salaryRange(finalFrom, finalTo)); }).start();
+                new Thread(() -> updateGUI(localDatabase.salaryRange(finalFrom, finalTo))).start();
 
             }
         }
 
         else if (searchOption == 5) {
-            new Thread(() -> { updateGUI(localDatabase.maxAgePlayers()); }).start();
+            updateGUI(localDatabase.maxAgePlayers());
         }
 
         else if (searchOption == 6) {
-            new Thread(() -> { updateGUI(localDatabase.maxHeightPlayers()); }).start();
+            updateGUI(localDatabase.maxHeightPlayers());
         }
 
         else if (searchOption == 7) {
-            new Thread(() -> { updateGUI(localDatabase.maxSalaryPlayers()); }).start();
+            updateGUI(localDatabase.maxSalaryPlayers());
         }
 
         else if (searchOption == 8) {
-            new Thread(() -> { updateGUI(localDatabase.countryWiseCount()); }).start();
+            updateGUI(localDatabase.countryWiseCount());
         }
 
         else if (searchOption == 9) {
-            //TotalSalary
-            double totalSalary = localDatabase.totalSalary();
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/views/fxml/totalSalaryDialog.fxml"));
-            try {
-                DialogPane dialogPane = fxmlLoader.load();
-                TotalSalaryDialog totalSalaryDialog = fxmlLoader.getController();
-                totalSalaryDialog.init(localDatabase.getClub().getName(), totalSalary);
-                Dialog dialog = new Dialog();
-                dialog.setDialogPane(dialogPane);
-                dialog.initStyle(StageStyle.UNDECORATED);
-                dialog.showAndWait();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    double totalSalary = localDatabase.totalSalary();
+                    if(dialog.isShowing()) {
+                        totalSalaryDialog.init(localDatabase.getClub().getName(), totalSalary);
+                        return;
+                    }
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("/views/fxml/totalSalaryDialog.fxml"));
+                    try {
+                        DialogPane dialogPane = fxmlLoader.load();
+                        totalSalaryDialog = fxmlLoader.getController();
+                        totalSalaryDialog.init(localDatabase.getClub().getName(), totalSalary);
+                        dialog = new Dialog();
+                        dialog.setDialogPane(dialogPane);
+                        dialog.initStyle(StageStyle.UNDECORATED);
+                        dialog.showAndWait();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
     }
 
     public void updateGUI(int list) {
         setList(list);
         searchOption = 0;
-        search();
+        new Thread(this::search).start();
     }
 
     public void updateGUI(int searchOption, String searchString) {
         this.searchOption = searchOption;
         this.searchString = searchString;
-        search();
+        new Thread(this::search).start();
     }
 
     public synchronized void updateGUI(List<Player> players) {
@@ -177,7 +187,6 @@ public class HomepageUpdater {
         });
     }
 
-
     //country wise count
     public synchronized void updateGUI(HashMap<String, Integer> countryWiseCount) {
         Platform.runLater(new Runnable() {
@@ -220,7 +229,7 @@ public class HomepageUpdater {
     }
 
     public void refreshGUI(int refresherId) {
-        if (list == 2 || list == 1 && refresherId == 1) search();
+        if (list == 2 || list == 1 && refresherId == 1) new Thread(this::search).start();
     }
 
 }

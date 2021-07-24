@@ -13,11 +13,9 @@ import java.util.List;
 public class Server {
 
     private ServerSocket serverSocket;
-    private List<NetworkUtil> clientList = new ArrayList<>();
-    private ServerRespond serverRespond;
+    private WriteThreadServer writeThreadServer = new WriteThreadServer();
 
     Server() {
-        serverRespond = new ServerRespond(clientList);
         try {
             serverSocket = new ServerSocket(44444);
             while (true) {
@@ -25,13 +23,13 @@ public class Server {
                 serve(clientSocket);
             }
         } catch (Exception e) {
-            System.out.println("network.server.Server starts:" + e);
+            System.out.println("network.network.server.Server starts:" + e);
         }
     }
 
     public void serve(Socket clientSocket) throws IOException {
         NetworkUtil networkUtil = new NetworkUtil(clientSocket);
-        new ReadThreadServer(clientList, networkUtil , serverRespond);
+        new ReadThreadServer(networkUtil , writeThreadServer);
     }
 
     public static void main(String args[]) {

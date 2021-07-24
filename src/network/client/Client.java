@@ -17,7 +17,7 @@ public class Client {
     public Client(String serverAddress, int serverPort) {
         try {
             networkUtil = new NetworkUtil(serverAddress, serverPort);
-            WriteThreadServer.setNetworkUtil(networkUtil);
+            WriteThreadClient.setNetworkUtil(networkUtil);
             readThreadClient = new ReadThreadClient(networkUtil);
         } catch (Exception e) {
             System.out.println(e);

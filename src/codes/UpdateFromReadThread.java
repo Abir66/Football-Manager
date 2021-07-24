@@ -2,18 +2,25 @@ package codes;
 
 import controllers.HomepageController;
 import controllers.LoginController;
+import controllers.SignUpController;
 import data.LocalDatabase;
 import javafx.application.Platform;
 import network.dto.LoginRespond;
+import network.dto.SignUpRespond;
 import network.dto.UpdateRespond;
 
 public class UpdateFromReadThread {
 
     private HomepageController homepageController;
     private LoginController loginController;
+    private SignUpController signUpController;
 
     public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
+    }
+
+    public void setSignUpController(SignUpController signUpController) {
+        this.signUpController = signUpController;
     }
 
     public void loginAction(LoginRespond loginRespond){
@@ -51,4 +58,7 @@ public class UpdateFromReadThread {
     }
 
 
+    public void signInAction(LoginRespond o) {
+        Platform.runLater(() -> signUpController.signUpAction(o));
+    }
 }

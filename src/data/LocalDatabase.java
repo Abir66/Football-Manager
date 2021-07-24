@@ -43,6 +43,7 @@ public class LocalDatabase {
         return instance;
     }
 
+
     public void setHomepageController(HomepageController homepageController) {
         this.homepageController = homepageController;
     }
