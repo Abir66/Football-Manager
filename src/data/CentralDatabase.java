@@ -1,8 +1,6 @@
 package data;
 
-import network.dto.BuyRequest;
-import network.dto.SellRequest;
-import network.dto.SignUpRequest;
+import network.dto.*;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -130,6 +128,13 @@ public class CentralDatabase {
         clubs.get(buyRequest.getBuyerId()).addPlayer(player);
         marketList.remove(player);
         return player;
+    }
+
+    public PlayerEditInfo editPlayer(PlayerEditInfo p){
+        Player player = players.get(p.getId());
+        if (player.isBeingSold() || player.getClub().getId()!= p.getClubId()) return null;
+        player.edit(p);
+        return new PlayerEditInfo(player);
     }
 
 

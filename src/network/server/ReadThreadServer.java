@@ -23,33 +23,27 @@ public class ReadThreadServer implements Runnable {
                 System.out.println(o);
 
                 if (o instanceof LoginRequest) {
-                    new Thread(() -> {
-                        writeThreadServer.login((LoginRequest) o, networkUtil);
-                    }).start();
+                    new Thread(() -> writeThreadServer.login((LoginRequest) o, networkUtil)).start();
                 }
 
                 if (o instanceof SignUpRequest) {
-                    new Thread(() -> {
-                        writeThreadServer.signUp((SignUpRequest) o, networkUtil);
-                    }).start();
+                    new Thread(() -> writeThreadServer.signUp((SignUpRequest) o, networkUtil)).start();
                 }
 
                 if (o instanceof SellRequest) {
-                    new Thread(() -> {
-                        writeThreadServer.sell((SellRequest) o);
-                    }).start();
+                    new Thread(() -> writeThreadServer.sell((SellRequest) o)).start();
                 }
 
                 if (o instanceof BuyRequest) {
-                    new Thread(() -> {
-                        writeThreadServer.buy((BuyRequest) o);
-                    }).start();
+                    new Thread(() -> writeThreadServer.buy((BuyRequest) o)).start();
+                }
+
+                if(o instanceof PlayerEditInfo){
+                    new Thread(() -> writeThreadServer.editPlayer((PlayerEditInfo) o)).start();
                 }
 
                 if (o instanceof LogoutRequest) {
-                    new Thread(() -> {
-                        writeThreadServer.logout(networkUtil);
-                    }).start();
+                    new Thread(() -> writeThreadServer.logout(networkUtil)).start();
                 }
             }
         } catch (Exception e) {

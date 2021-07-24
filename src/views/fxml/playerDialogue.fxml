@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane expanded="true" prefHeight="282.0" prefWidth="630.0" styleClass="dialog" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PlayerDialogueController">
+<DialogPane expanded="true" prefHeight="247.0" prefWidth="630.0" styleClass="dialog" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PlayerDialogueController">
    <content>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="242.0" prefWidth="610.0" style="-fx-background-color: #303030;">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="292.0" prefWidth="614.0" style="-fx-background-color: #303030;">
          <children>
             <Label fx:id="name" contentDisplay="CENTER" layoutX="56.0" layoutY="36.0" prefHeight="60.0" prefWidth="498.0" text="Lionel Messi" textAlignment="CENTER" textFill="WHITE">
                <font>
@@ -75,9 +75,14 @@
                   <Font name="Agency FB" size="24.0" />
                </font>
             </Label>
-            <Button layoutX="554.0" layoutY="14.0" onAction="#close" prefHeight="38.0" prefWidth="42.0" styleClass="grey-button" stylesheets="@../styles/style.css" text="X" textFill="WHITE">
+            <Button layoutX="502.0" layoutY="248.0" onAction="#close" prefHeight="42.0" prefWidth="81.0" styleClass="grey-button" stylesheets="@../styles/style.css" text="Close" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="24.0" />
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="editButton" layoutX="407.0" layoutY="248.0" onAction="#edit" prefHeight="42.0" prefWidth="81.0" styleClass="grey-button" stylesheets="@../styles/style.css" text="Edit" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
                </font>
             </Button>
          </children>

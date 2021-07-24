@@ -70,3 +70,9 @@
     -fx-border-color: #212121;
     -fx-border-width: 8;
 }
+
+.combo-box{
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: blue;
+    -fx-background-color: red;
+}

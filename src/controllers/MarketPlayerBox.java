@@ -35,9 +35,6 @@ public class MarketPlayerBox implements Initializable {
     @FXML
     private Button detailsButton;
 
-
-
-
     @FXML
     void details(ActionEvent event) {
         FXMLLoader fxmlLoader= new FXMLLoader();
@@ -45,7 +42,7 @@ public class MarketPlayerBox implements Initializable {
         try {
             DialogPane dialogPane = fxmlLoader.load();
             PlayerDialogueController playerDialogueController = fxmlLoader.getController();
-            playerDialogueController.init(player);
+            playerDialogueController.init(player,false);
             Dialog dialog = new Dialog();
             dialog.setDialogPane(dialogPane);
             dialog.initStyle(StageStyle.UNDECORATED);

@@ -8,7 +8,6 @@ import network.util.NetworkUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class WriteThreadServer {
@@ -48,8 +47,6 @@ public class WriteThreadServer {
         }
     }
 
-
-
     public synchronized void sell(SellRequest sellRequest) {
         Player player = CentralDatabase.getInstance().sell(sellRequest);
         if (player == null) return;
@@ -68,8 +65,17 @@ public class WriteThreadServer {
         }
     }
 
+    public synchronized void editPlayer(PlayerEditInfo o) {
+        PlayerEditInfo p = CentralDatabase.getInstance().editPlayer(o);
+        if(p == null) return;
+        for (var client : clientList) {
+            if (client.getClubId()==p.getClubId()) client.write(p);
+        }
+    }
+
     public synchronized void logout(NetworkUtil networkUtil) {
         clientList.removeIf(client -> client.getNetworkUtil() == networkUtil);
     }
+
 
 }

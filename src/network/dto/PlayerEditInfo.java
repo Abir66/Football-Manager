@@ -1,21 +1,20 @@
-package data;
+package network.dto;
 
-import network.dto.PlayerEditInfo;
+import data.Player;
 
 import java.io.Serializable;
 
-public class Player implements Serializable {
+public class PlayerEditInfo implements Serializable {
+
     String name;
     String country;
-    Club club;
     int age;
     int number;
     String position;
     double height;
     double salary;
-    boolean isBeingSold = false;
     int id;
-    double price;
+    int clubId;
 
     public String getName() {
         return name;
@@ -31,14 +30,6 @@ public class Player implements Serializable {
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    public Club getClub() {
-        return club;
-    }
-
-    public void setClub(Club club) {
-        this.club = club;
     }
 
     public int getAge() {
@@ -81,14 +72,6 @@ public class Player implements Serializable {
         this.salary = salary;
     }
 
-    public boolean isBeingSold() {
-        return isBeingSold;
-    }
-
-    public void setBeingSold(boolean beingSold) {
-        isBeingSold = beingSold;
-    }
-
     public int getId() {
         return id;
     }
@@ -97,29 +80,15 @@ public class Player implements Serializable {
         this.id = id;
     }
 
-    public double getPrice() {
-        return price;
+    public int getClubId() {
+        return clubId;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setClubId(int clubId) {
+        this.clubId = clubId;
     }
 
-    public Player(Player p) {
-        name = p.name;
-        country = p.country;
-        club = p.club;
-        age = p.age;
-        number = p.number;
-        position = p.position;
-        height = p.height;
-        salary = p.salary;
-        isBeingSold = p.isBeingSold;
-        id = p.id;
-        price = p.price;
-    }
-
-    public void edit(PlayerEditInfo p){
+    public PlayerEditInfo(Player p) {
         name = p.getName();
         country = p.getCountry();
         position = p.getPosition();
@@ -127,9 +96,11 @@ public class Player implements Serializable {
         number = p.getNumber();
         height = p.getHeight();
         salary = p.getSalary();
+        id = p.getId();
+        clubId = p.getClub().getId();
     }
 
-    public Player(){}
+    public PlayerEditInfo(){
 
-
+    }
 }

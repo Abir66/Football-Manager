@@ -229,7 +229,8 @@ public class HomepageUpdater {
     }
 
     public void refreshGUI(int refresherId) {
-        if (list == 2 || list == 1 && refresherId == 1) new Thread(this::search).start();
+        if(list == 1 && refresherId == 2) new Thread(this::search).start();
+        else if (list == 2 || list == 1 && refresherId == 1) new Thread(this::search).start();
     }
 
 }

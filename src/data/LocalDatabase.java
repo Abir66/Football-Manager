@@ -2,6 +2,7 @@ package data;
 
 import controllers.HomepageController;
 import network.dto.LoginRespond;
+import network.dto.PlayerEditInfo;
 import network.util.NetworkUtil;
 
 import java.util.*;
@@ -220,4 +221,9 @@ public class LocalDatabase {
     }
 
 
+    public void editPlayer(PlayerEditInfo o) {
+        for (var player : clubPlayers) {
+            if (player.getId() == o.getId()) player.edit(o);
+        }
+    }
 }

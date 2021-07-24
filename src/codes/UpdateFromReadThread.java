@@ -6,6 +6,7 @@ import controllers.SignUpController;
 import data.LocalDatabase;
 import javafx.application.Platform;
 import network.dto.LoginRespond;
+import network.dto.PlayerEditInfo;
 import network.dto.SignUpRespond;
 import network.dto.UpdateRespond;
 
@@ -57,8 +58,16 @@ public class UpdateFromReadThread {
         homepageController.getHomepageUpdater().refreshGUI(finalRefresher);
     }
 
+    public synchronized void editPlayerInfo(PlayerEditInfo o) {
+        homepageController = LocalDatabase.getInstance().getHomepageController();
+        LocalDatabase.getInstance().editPlayer(o);
+        System.out.println("huh");
+        homepageController.getHomepageUpdater().refreshGUI(2);
+    }
 
     public void signInAction(LoginRespond o) {
         Platform.runLater(() -> signUpController.signUpAction(o));
     }
+
+
 }

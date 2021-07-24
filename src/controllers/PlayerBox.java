@@ -37,7 +37,7 @@ public class PlayerBox {
         try {
             DialogPane dialogPane = fxmlLoader.load();
             PlayerDialogueController playerDialogueController = fxmlLoader.getController();
-            playerDialogueController.init(player);
+            playerDialogueController.init(player, true);
             Dialog dialog = new Dialog();
             dialog.setDialogPane(dialogPane);
             dialog.initStyle(StageStyle.UNDECORATED);

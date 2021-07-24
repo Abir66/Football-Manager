@@ -2,6 +2,7 @@ package network.client;
 
 import codes.UpdateFromReadThread;
 import network.dto.LoginRespond;
+import network.dto.PlayerEditInfo;
 import network.dto.SignUpRespond;
 import network.dto.UpdateRespond;
 import network.util.NetworkUtil;
@@ -37,6 +38,10 @@ public class ReadThreadClient implements Runnable {
                 }
                 if(o instanceof UpdateRespond){
                     update.updateFromServerRespond((UpdateRespond) o);
+                }
+
+                if(o instanceof PlayerEditInfo){
+                    update.editPlayerInfo((PlayerEditInfo) o);
                 }
             }
         } catch (Exception e) {
