@@ -18,6 +18,7 @@ public class Server {
     Server() {
         try {
             serverSocket = new ServerSocket(44444);
+            System.out.println("Server Ready.........");
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 serve(clientSocket);

@@ -16,7 +16,10 @@ public class CentralDatabase {
 
     private CentralDatabase() {
         try {
+            System.out.println("Reading files................");
             readFromInputFile();
+            readPasswordsFromFile();
+            System.out.println("Reading files done.");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -37,6 +40,8 @@ public class CentralDatabase {
 
     private static final String INPUT_FILE_NAME = "players.txt";
     private static final String OUTPUT_FILE_NAME = "players.txt";
+    private static final String INPUT_PASSWORD_FILE_NAME = "password.txt";
+    private static final String OUTPUT_PASSWORD_FILE_NAME = "password.txt";
 
     public void addPlayer(Player p) {
         p.setId(players.size());
@@ -79,6 +84,18 @@ public class CentralDatabase {
         br.close();
     }
 
+    public void readPasswordsFromFile() throws Exception {
+        BufferedReader br = new BufferedReader(new FileReader(INPUT_PASSWORD_FILE_NAME));
+        while (true) {
+            String line = br.readLine();
+            if (line == null) break;
+            String[] tokens = line.split(",");
+            Club club = addClub(tokens[0]);
+            club.setPassword(tokens[1]);
+        }
+        br.close();
+    }
+
     public void writeToInputFile() throws Exception {
         BufferedWriter bw = new BufferedWriter(new FileWriter(OUTPUT_FILE_NAME));
         for (Club club : clubs) {
@@ -89,6 +106,12 @@ public class CentralDatabase {
                 bw.write("\n");
             }
         }
+        bw.close();
+    }
+
+    public void writePasswordToInputFile() throws Exception {
+        BufferedWriter bw = new BufferedWriter(new FileWriter(OUTPUT_PASSWORD_FILE_NAME));
+        for (Club club : clubs) bw.write(club.getName() + "," + club.getPassword() + "\n");
         bw.close();
     }
 

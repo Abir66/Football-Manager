@@ -9,7 +9,7 @@ public class Club implements Serializable {
     String name;
     List<Player> players = new ArrayList();
     int id;
-    String password = "1234";
+    String password;
 
     public Club() {
 

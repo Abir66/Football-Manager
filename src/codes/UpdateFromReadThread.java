@@ -31,7 +31,6 @@ public class UpdateFromReadThread {
                 loginController.loginAction(loginRespond);
             }
         });
-        System.out.println("login Successfull");
     }
 
     public synchronized void updateFromServerRespond(UpdateRespond updateRespond){
