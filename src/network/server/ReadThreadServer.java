@@ -45,6 +45,12 @@ public class ReadThreadServer implements Runnable {
                 if (o instanceof LogoutRequest) {
                     new Thread(() -> writeThreadServer.logout(networkUtil)).start();
                 }
+
+                if(o instanceof CloseGUI){
+                    new Thread(() -> writeThreadServer.logout(networkUtil)).start();
+                    networkUtil.write(o);
+                    break;
+                }
             }
         } catch (Exception e) {
             System.out.println(e);

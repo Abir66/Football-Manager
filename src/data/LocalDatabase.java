@@ -181,13 +181,7 @@ public class LocalDatabase {
         List<Map.Entry<String, Integer> > list = new LinkedList<Map.Entry<String, Integer> >(hm.entrySet());
 
         // Sort the list
-        Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() {
-            public int compare(Map.Entry<String, Integer> o1,
-                               Map.Entry<String, Integer> o2)
-            {
-                return (o2.getValue()).compareTo(o1.getValue());
-            }
-        });
+        Collections.sort(list, (o1, o2) -> (o2.getValue()).compareTo(o1.getValue()));
 
         // put data from sorted list to hashmap
         HashMap<String, Integer> temp = new LinkedHashMap<String, Integer>();
@@ -203,7 +197,7 @@ public class LocalDatabase {
     public void addToMarket(Player player){
         marketPlayers.add(player);
     }
-    public void removeFromList(Player player){
+    public void removeFromClub(Player player){
         for (int i = 0; i < clubPlayers.size(); i++) {
             if(clubPlayers.get(i).getId() == player.getId()){
                 clubPlayers.remove(i);
@@ -219,7 +213,6 @@ public class LocalDatabase {
             }
         }
     }
-
 
     public void editPlayer(PlayerEditInfo o) {
         for (var player : clubPlayers) {

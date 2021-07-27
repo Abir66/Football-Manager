@@ -159,7 +159,6 @@ public class PlayerEdit {
         salary.setText(String.valueOf(player.getSalary()));
         number.setText(String.valueOf(player.getNumber()));
         position.setItems(observableArrayList("Goalkeeper", "Defender", "Midfielder", "Forward"));
-        System.out.println("okay");
     }
 
     public void init(Player player){

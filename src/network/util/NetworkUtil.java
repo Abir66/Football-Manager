@@ -35,6 +35,7 @@ public class NetworkUtil {
     public void closeConnection() throws IOException {
         ois.close();
         oos.close();
+        socket.close();
     }
 }
 

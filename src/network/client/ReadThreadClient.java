@@ -1,10 +1,7 @@
 package network.client;
 
 import codes.UpdateFromReadThread;
-import network.dto.LoginRespond;
-import network.dto.PlayerEditInfo;
-import network.dto.SignUpRespond;
-import network.dto.UpdateRespond;
+import network.dto.*;
 import network.util.NetworkUtil;
 import java.io.IOException;
 
@@ -29,19 +26,23 @@ public class ReadThreadClient implements Runnable {
                 Object o = networkUtil.read();
 
                 if (o instanceof SignUpRespond) {
-                    LoginRespond login = (SignUpRespond) o;
-                    update.signInAction((SignUpRespond) o);
+                    update.signUpAction((SignUpRespond) o);
                 }
+
                 else if (o instanceof LoginRespond) {
-                    LoginRespond login = (LoginRespond) o;
-                    update.loginAction(login);
+                    update.loginAction((LoginRespond) o);
                 }
+
                 if(o instanceof UpdateRespond){
                     update.updateFromServerRespond((UpdateRespond) o);
                 }
 
                 if(o instanceof PlayerEditInfo){
                     update.editPlayerInfo((PlayerEditInfo) o);
+                }
+
+                if (o instanceof CloseGUI){
+                    break;
                 }
             }
         } catch (Exception e) {

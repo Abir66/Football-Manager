@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import network.client.Client;
 import network.client.ReadThreadClient;
-import network.dto.LogoutRequest;
+import network.dto.CloseGUI;
 import network.util.NetworkUtil;
 import java.io.IOException;
 
@@ -33,6 +33,7 @@ public class Main extends Application {
         readThreadClient.setUpdate(updater);
 
         stage = primaryStage;
+        stage.setResizable(false);
         stage.setOnCloseRequest(e->closeProgram());
         showLoginPage();
     }
@@ -89,16 +90,13 @@ public class Main extends Application {
 
     void closeProgram(){
         try {
-            networkUtil.write(new LogoutRequest());
-            networkUtil.closeConnection();
+            networkUtil.write(new CloseGUI());
         } catch (IOException e) {
             e.printStackTrace();
         }
         stage.close();
-        System.out.println("Exited successfully");
     }
-
-
+    
     public static void main(String[] args) {
         launch(args);
     }

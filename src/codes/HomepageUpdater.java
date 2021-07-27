@@ -56,7 +56,6 @@ public class HomepageUpdater {
         }
 
         else if (searchOption == 4) {
-            //SalaryRange
             double from = -1, to = -1;
             String[] s = searchString.split(",");
             String fromString = "", toString = "";
@@ -67,26 +66,25 @@ public class HomepageUpdater {
                 try {
                     from = Double.parseDouble(s[0]);
                 } catch (Exception e) {
-                    homepageController.setMessageLabel("Please enter valid numbers");
+                    Platform.runLater(() -> homepageController.setMessageLabel("Please enter valid numbers"));
                 }
             }
             if (!toString.isEmpty()) {
                 try {
                     to = Double.parseDouble(s[1]);
                 } catch (Exception e) {
-                    homepageController.setMessageLabel("Please enter valid numbers");
+                    Platform.runLater(() -> homepageController.setMessageLabel("Please enter valid numbers"));
                 }
             }
             if (to < from && to != -1) {
-                homepageController.setMessageLabel("Please enter valid numbers");
+                Platform.runLater(() -> homepageController.setMessageLabel("Please enter valid numbers"));
                 return;
             }
             if (!(to == -1 && from == -1)) {
                 homepageController.setMessageLabel(null);
                 double finalFrom = from;
                 double finalTo = to;
-                new Thread(() -> updateGUI(localDatabase.salaryRange(finalFrom, finalTo))).start();
-
+                updateGUI(localDatabase.salaryRange(finalFrom, finalTo));
             }
         }
 
@@ -230,7 +228,7 @@ public class HomepageUpdater {
 
     public void refreshGUI(int refresherId) {
         if(list == 1 && refresherId == 2) new Thread(this::search).start();
-        else if (list == 2 || list == 1 && refresherId == 1) new Thread(this::search).start();
+        else if (list == 2 || (list == 1 && refresherId == 1)) new Thread(this::search).start();
     }
 
 }
